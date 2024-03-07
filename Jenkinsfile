@@ -14,9 +14,7 @@ pipeline {
         stage('build') {
             steps {
                 echo "building java-maven app here......"
-                dir('jenkins/workspace/devops-complete-project_main/java-app') {
-                    sh 'mvn clean deploy -Dmvn.test.skip=true'
-                }
+                sh 'mvn clean deploy -Dmvn.test.skip=true'
             }
         }
         // stage('test') {
