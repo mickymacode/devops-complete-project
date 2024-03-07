@@ -1,0 +1,44 @@
+#Use ansible playbook to install jenkins
+
+#Jenkins install STEPS（follow this link：https://pkg.jenkins.io/debian-stable/）:
+#1. Add the Jenkins repo keys to system
+#2. Add repository to system
+#3. Install dependencies
+#4. Install Jenkins
+---
+- hosts: jenkins-master
+  become: true # Run tasks with superuser privileges
+  tasks: 
+  - name: add jenkins key 
+    #use Ansible built-in module 'apt_key' to add the jenkins key
+    #url: the key of the jenkins repository signing key for Ubuntu, 确保存在于系统中
+    apt_key: 
+      url:  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      state: present 
+
+    #use Ansible built-in module 'apt_repository' to add the jenkins repository
+    #repo: link, '2个值'
+  - name: add jenkins repo 
+    apt_repository: 
+      repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+      state: present 
+
+  - name: install java 
+    apt: 
+      name: openjdk-11-jre
+      state: present
+
+  - name: install jenkins 
+    apt: 
+      name: jenkins 
+      state: present 
+
+  - name: start jenkins service 
+    service: 
+      name: jenkins 
+      state: started 
+
+  - name: enable jenkins to start at boot time 
+    service: 
+      name: jenkins 
+      enabled: yes 

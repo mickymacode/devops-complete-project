@@ -1,0 +1,67 @@
+1. After executing terraform，3 instances ("jenkins-master", "jenkins-slave", "ansible")were created on AWS
+2. Now，ssh in to "ansible" instance (use public ip + "aws-key.pem" + "ubuntu" as user name)
+3. Then, install the ansible inside:
+    sudo apt update
+    sudo apt install software-properties-common
+    sudo add-apt-repository --yes --update ppa:ansible/ansible
+    sudo apt install ansible
+4. check installation with "ansible --version"
+Done!
+
+5. Then inside the "ansible" instance, connect to "jenkins-master" and "jenkins-slave":
+    cd /opt
+    sudo vim hosts (需要root权限)
+
+6 inside the hosts file, set the connection (用private ip, 在同一vpc内): 
+
+    [jenkins-master]
+    10.1.1.124
+
+    [jenkins-master:vars]
+    ansible_user=ubuntu
+    ansible_ssh_private_key_file=/opt/aws-key.pem
+
+    [jenkins-slave]
+    10.1.1.236
+
+    [jenkins-slave:vars]
+    ansible_user=ubuntu
+    ansible_ssh_private_key_file=/opt/aws-key.pem
+
+7. 把aws-key.pem复制到/home/ubuntu，移动到/opt
+    chmod 600 /opt/aws-key.pem （避免WARNING: UNPROTECTED PRIVATE KEY FILE! ）
+
+最后：ansible -i /opt/hosts all -m ping 连接了
+
+----------------------------------------------------------------------------------
+
+8. 使用ansible playbook配置'jenkins-master' 和 'jenkins-slave'
+    8.1 In 'ansible' instance: sudo vim jenkins-master-setup.yaml (写入内容)
+    8.2 运行ansible-playbook -i /opt/hosts jenkins-master-setup.yaml (执行文件)
+    8.3 In 'jenkins-master' instance, see all installed sucessfully (查看java -version和service jenkins status)
+    8.4 Done! 'jenkins-master' instance的public ip:8080打开jenkins
+同样配置'jenkins-slave', maven installed (在/opt/apache-maven-3.9.6/bin/mvn下查看mvn -v)
+
+------------------------------------------------------------------------------------
+
+9. Configure Jenkins (add Global Credentials & jenkins-slave(maven-slave) node)
+    9.1 Add Credentials
+        Manage Jenkins --> Manage Credentials --> System --> Global credentials --> Add credentials
+        kind: ssh username with private key
+        Scope: Global
+        ID: maven_slave
+        Username: ubuntu
+        key used is the aws-key.pem
+    
+    9.2 Add Node
+        Goto Manage Jenkins --> Manage nodes and clouds --> New node --> Permanent Agent
+        Number of executors: 3
+        Remote root directory: /home/ubuntu/jenkins (创建这个jenkins文件夹,在jenkins_slave可以看到jenkins文件增加)
+        Labels: maven
+        Usage: Use this node as much as possible
+        Launch method: Launch agents via SSH
+        Host: <Private_IP_of_Slave>
+        Credentials: just created
+        Host Key Verification Strategy: Non verifying Verification Strategy
+        Availability: Keep this agent online as much as possible
+    
