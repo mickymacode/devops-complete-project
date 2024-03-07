@@ -39,7 +39,8 @@ Done!
     8.1 In 'ansible' instance: sudo vim jenkins-master-setup.yaml (写入内容)
     8.2 运行ansible-playbook -i /opt/hosts jenkins-master-setup.yaml (执行文件)
     8.3 In 'jenkins-master' instance, see all installed sucessfully (查看java -version和service jenkins status)
-    8.4 Done! 'jenkins-master' instance的public ip:8080打开jenkins
+    8.4 Done! 'jenkins-master'instance的public ip:8080打开jenkins
+
 同样配置'jenkins-slave', maven installed (在/opt/apache-maven-3.9.6/bin/mvn下查看mvn -v)
 
 ------------------------------------------------------------------------------------
