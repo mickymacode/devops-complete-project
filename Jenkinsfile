@@ -27,6 +27,7 @@ pipeline {
             steps {
                 script {
                   echo 'building docker image...'
+                  sh 'pwd'
                   sh "docker build -t mickyma22/my-repo:complete-project-1.0 -f docker/Dockerfile ."
                 }
           }
