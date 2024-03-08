@@ -27,8 +27,7 @@ pipeline {
             steps {
                 script {
                   echo 'building docker image...'
-                  //build context指定Docker构建过程中使用的文件和目录的路径（即/docker）
-                  sh "docker build -t mickyma22/my-repo:complete-project-1.0 -f /docker/Dockerfile /docker"
+                  sh "docker build -t mickyma22/my-repo:complete-project-1.0 -f /docker/Dockerfile ."
                 }
           }
         }
