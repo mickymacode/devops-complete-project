@@ -23,5 +23,24 @@ pipeline {
         //         sh 'mvn surefire-report:report'
         //     }
         // }
+        stage('build docker image') {
+            steps {
+                script {
+                  echo 'building docker image...'
+                  //build context指定Docker构建过程中使用的文件和目录的路径（即/docker）
+                  sh "docker build -t mickyma22/my-repo:complete-project-1.0 -f /docker/Dockerfile /docker"
+                }
+          }
+        }
+        stage('push docker image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh 'docker push mickyma22/my-repo:complete-project-1.0'
+                    }
+                }
+            }
+        }
     }
 }

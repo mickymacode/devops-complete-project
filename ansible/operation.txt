@@ -46,7 +46,7 @@ Done!
 ------------------------------------------------------------------------------------
 
 9. Configure Jenkins (add Global Credentials & jenkins-slave(maven-slave) node)
-    9.1 Add Credentials
+    9.1 Add Credentials (用于在Jenkins连接jenkins_slave)
         Manage Jenkins --> Manage Credentials --> System --> Global credentials --> Add credentials
         kind: ssh username with private key
         Scope: Global
