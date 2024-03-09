@@ -83,7 +83,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-                	<mainClass>java.com.micky.demo.DemoWorkshopApplication</mainClass>
+                	<mainClass>com.example.demo.DemoWorkshopApplication</mainClass>
             	</configuration>
 			</plugin>
 			<plugin>
