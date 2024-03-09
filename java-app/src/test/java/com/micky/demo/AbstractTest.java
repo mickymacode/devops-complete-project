@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.micky.demo;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
