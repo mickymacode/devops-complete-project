@@ -1,4 +1,4 @@
-package com.example.demo;.controller;
+package com.example.demo.controller;
 
 import java.io.IOException;
 import java.util.HashMap;

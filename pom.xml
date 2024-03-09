@@ -8,7 +8,7 @@
 		<version>2.2.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.project</groupId>
 	<artifactId>demo-java-app</artifactId>
 	<version>2.1.2</version>
 	<name>demo-java-app</name>
@@ -82,16 +82,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-                	<mainClass>com.example.demo.DemoWorkshopApplication</mainClass>
-            	</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 				<configuration>
-					<argLine>${argLine} -Xmx2048m</argLine>
+					<!-- <argLine>${argLine} -Xmx2048m</argLine> -->
+					<forkCount>0</forkCount>
 				</configuration>
 			</plugin>
 
