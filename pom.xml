@@ -116,12 +116,12 @@
 		</plugins>
 	</build>
 
-	<distributionManagement>
+	<!-- <distributionManagement>
 		<repository>
 			<id>dev</id>
 			<url>file://jarstaging</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement> -->
 
 
 </project>
