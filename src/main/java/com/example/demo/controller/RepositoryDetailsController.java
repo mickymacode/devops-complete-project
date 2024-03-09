@@ -27,6 +27,11 @@ public class RepositoryDetailsController {
     @Autowired
     private Environment env;
 
+	@RequestMapping("/")
+	public String getRepos() throws IOException {
+		return "Hello Micky! This is a test application.";
+	}
+
 	@GetMapping("/trends")
 	public Map<String, String> getTwitterTrends(@RequestParam("placeid") String trendPlace, @RequestParam("count") String trendCount) {
 		String consumerKey = env.getProperty("CONSUMER_KEY");
