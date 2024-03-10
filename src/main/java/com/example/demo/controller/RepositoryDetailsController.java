@@ -29,7 +29,7 @@ public class RepositoryDetailsController {
 
 	@RequestMapping("/")
 	public String getRepos() throws IOException {
-		return "Hello Micky! This is a test application.";
+		return "Hello Micky! This is a test application. Welcome!";
 	}
 
 	@GetMapping("/trends")

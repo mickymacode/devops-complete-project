@@ -36,7 +36,7 @@ In 'jenkins_slave': docker run -dt -p 8000:8000 <dockerimageid>
 
     browser: jenkins_slave public ip:8000 open web page
 
-=============================================================================================
+---
 
 8.  configure eks and eks-sg with vpc
 
