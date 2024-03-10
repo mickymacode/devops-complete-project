@@ -17,12 +17,6 @@ pipeline {
                 sh 'mvn clean deploy -Dmvn.test.skip=true'
             }
         }
-        // stage('test') {
-        //     steps {
-        //         echo "testing java-maven app here......"
-        //         sh 'mvn surefire-report:report'
-        //     }
-        // }
         stage('build docker image') {
             steps {
                 script {
@@ -41,6 +35,13 @@ pipeline {
                     }
                 }
             }
+        }
+        stage('apply') {
+            steps {
+                script {
+                    sh './kubernetes/apply.sh'
+                }
+            } 
         }
     }
 }
