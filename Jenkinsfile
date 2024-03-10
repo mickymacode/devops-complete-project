@@ -22,7 +22,7 @@ pipeline {
                 script {
                   echo 'building docker image...'
                   sh 'pwd'
-                  sh "docker build -t mickyma22/my-repo:complete-project-5.0 -f docker/Dockerfile ."
+                  sh "docker build -t mickyma22/my-repo:complete-project-6.0 -f docker/Dockerfile ."
                 }
           }
         }
@@ -31,7 +31,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                         sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh 'docker push mickyma22/my-repo:complete-project-5.0'
+                        sh 'docker push mickyma22/my-repo:complete-project-6.0'
                     }
                 }
             }

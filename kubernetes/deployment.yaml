@@ -17,7 +17,7 @@ spec:
         - name: dop-token
       containers:
         - name: dop-deployment
-          image: mickyma22/my-repo:complete-project-5.0
+          image: mickyma22/my-repo:complete-project-6.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
