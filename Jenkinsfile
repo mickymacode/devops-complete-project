@@ -40,6 +40,7 @@ pipeline {
             steps {
                 script {
                     sh 'chmod +x ./kubernetes/apply.sh'
+                    sh 'pwd'
                     sh './kubernetes/apply.sh'
                 }
             } 
