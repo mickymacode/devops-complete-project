@@ -39,6 +39,7 @@ pipeline {
         stage('apply') {
             steps {
                 script {
+                    sh 'chmod +x ./kubernetes/apply.sh'
                     sh './kubernetes/apply.sh'
                 }
             } 
