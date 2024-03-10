@@ -36,7 +36,7 @@ In 'jenkins_slave': docker run -dt -p 8000:8000 <dockerimageid>
 
     browser: jenkins_slave public ip:8000 open web page
 
----
+=============================================================================================
 
 8.  configure eks and eks-sg with vpc
 
@@ -77,21 +77,26 @@ Done! Kubernetes set up.
 move deployment.yaml, namespace.yaml, service.yaml inside the folder
 
 Note::: In deployment.yaml: pull image from docker hub need secret: </br>
-kubectl create secret docker-registry dop-token \ </br>
---docker-server=https://index.docker.io/v1/ \ </br>
---docker-username=<your-docker-username> \ </br>
---docker-password=<your-docker-password OR token> \ </br>
---docker-email=<your-email> \ </br>
--n dop-namespace </br>
 
-If password use token：need to generate a token in docker hub account -> security
+    kubectl create secret docker-registry dop-token \
+    --docker-server=https://index.docker.io/v1/ \
+    --docker-username=<your-docker-username> \
+    --docker-password=<your-docker-password OR token> \
+    --docker-email=<your-email> \
+    -n dop-namespace
+
+If password use token：need to generate a token in docker hub account -> security </br>
+
+Check To Confirm: kubectl get secrets -n dop-namespace
 
 11. Create a script to apply: </br>
     kubectl apply -f namespace.yaml </br>
     kubectl apply -f deployment.yaml </br>
     kubectl apply -f service.yaml </br>
 
-In jenkinsfile: add a stage to use the script
+In jenkinsfile: add a stage to use the script </br>
+
+Check To Confirm: kubectl get pods -n dop-namespace
 
 12. In AWS instance (worker node) -> security group add inbound 30082 </br>
     browser: worker node public ip:30082 open web page
