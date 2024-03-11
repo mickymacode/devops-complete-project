@@ -1,4 +1,4 @@
-package com.stalin.demo.controller;
+package com.example.demo.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,6 +26,11 @@ public class RepositoryDetailsController {
 
     @Autowired
     private Environment env;
+
+	@RequestMapping("/")
+	public String getRepos() throws IOException {
+		return "Hello Micky! This is a test application. Welcome!";
+	}
 
 	@GetMapping("/trends")
 	public Map<String, String> getTwitterTrends(@RequestParam("placeid") String trendPlace, @RequestParam("count") String trendCount) {
