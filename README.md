@@ -1,3 +1,5 @@
+<h3>Project Notes:</h3>
+
 1. Use Terraform to configure AWS, ceate 3 instanes in 1 VPC
 
 2. Use Ansible to config and conect these 3 instance.
@@ -38,7 +40,9 @@ In 'jenkins_slave': docker run -dt -p 8000:8000 <dockerimageid>
 
 ---
 
-8.  configure eks and eks-sg with vpc
+8.  Use Kubernetes
+
+configure eks and eks-sg with vpc
 
 9.  Integrate 'jenkins_slave' with Kubernetes cluster just create
 
@@ -85,18 +89,80 @@ Note::: In deployment.yaml: pull image from docker hub need secret: </br>
     --docker-email=<your-email> \
     -n dop-namespace
 
-If password use token：need to generate a token in docker hub account -> security </br>
+If --docker-password use token：need to generate a token in docker hub account -> security </br>
 
-Check To Confirm: kubectl get secrets -n dop-namespace
+Check To Confirm:
+
+    kubectl get secrets -n dop-namespace
 
 11. Create a script to apply: </br>
-    kubectl apply -f namespace.yaml </br>
-    kubectl apply -f deployment.yaml </br>
-    kubectl apply -f service.yaml </br>
+
+        kubectl apply -f namespace.yaml
+
+        kubectl apply -f deployment.yaml
+
+        kubectl apply -f service.yaml
 
 In jenkinsfile: add a stage to use the script </br>
 
-Check To Confirm: kubectl get pods -n dop-namespace
+Check To Confirm:
+
+    kubectl get pods -n dop-namespace
 
 12. In AWS instance (worker node) -> security group add inbound 30082 </br>
     browser: worker node public ip:30082 open web page
+
+Done!
+
+---
+
+13. Add Prometheus to monitor the kubernetes
+
+    13.1 Install Helm:
+
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+        chmod 700 get_helm.sh
+
+        ./get_helm.sh
+
+        helm version
+
+    13.2 Create a namespace for Prometheus
+
+        kubectl create namespace monitoring
+
+    13.3 Add Prometheus Helm repo:
+
+        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+        helm repo update
+
+        helm repo list (check installed)
+
+    13.4 Install Prometheus via Helm:
+
+        helm install dop-prometheus prometheus-community/kube-prometheus-stack --namespace monitoring
+
+        kubectl get pods（check installed）
+
+    13.5 kubectl get all -n monitoring (can see all service are internal with ClusterIP)
+
+    Change the 'CluterIp' to 'LoadBalancer' for external access:
+
+        kubectl edit svc prometheus-grafana -n monitoring
+
+        browser: elb DNS name (no port needed), access Grafana dashboard
+
+        LOGIN:
+
+        username: admin
+
+        password: prom-operator
+
+    In dashboard, can see the monitoring data of ns, pod, etc.
+
+Done!
+(change back with ClusterIP: kubectl edit svc prometheus-grafana -n monitoring,
+
+AWS LoadBalancer will be deleted)
