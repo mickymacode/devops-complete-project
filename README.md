@@ -146,13 +146,17 @@ Done!
 
         kubectl get pods（check installed）
 
-    13.5 kubectl get all -n monitoring (can see all service are internal with ClusterIP)
+    13.5 Access **Grafana** dashboard:
 
-    Change the 'CluterIp' to 'LoadBalancer' for external access:
+            kubectl get all -n monitoring
 
-        kubectl edit svc prometheus-grafana -n monitoring
+        (can see all service are internal with ClusterIP)
 
-        browser: elb DNS name (no port needed), access **Grafana** dashboard
+        Change the 'CluterIp' to 'LoadBalancer' for external access:
+
+            kubectl edit svc prometheus-grafana -n monitoring
+
+        browser: elb DNS name (no port needed) to access Grafana webpage
 
         LOGIN:
 
