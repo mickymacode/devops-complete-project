@@ -1,8 +1,8 @@
 <h3>Project Notes:</h3>
 
-1. Use Terraform to configure AWS, ceate 3 instanes in 1 VPC
+1. Use **Terraform** to configure AWS, ceate 3 instanes in 1 VPC
 
-2. Use Ansible to config and conect these 3 instance.
+2. Use **Ansible** to config and conect these 3 instance.
 
    2.1 In 'ansible' instance: use ansible to set connection with 'jenkins_master' and 'jenkins_slave' instance
 
@@ -10,27 +10,27 @@
 
    2.3 In 'ansible' instance: config maven in 'jenkins_slave' (jenkins still not found in 'jenkins_slave' now)
 
-3. Access Jenkins page ('jenkins-master'instance public ip:8080),
+3. Access **Jenkins** page ('jenkins-master'instance public ip:8080),
 
    Add Global Credentials & 'jenkins-slave'(or called 'maven-slave')node
 
    there should be a jenkins folder in 'jenkins-slave' now
 
-4. Write initial jenkinfile
+4. Write initial **jenkinfile**
 
 5. Configure in Jenkins page:
 
-   Connect Github with Credentials
+   Connect **Github** with Credentials
 
    Add Github webhook for auto-trigger pipeline
 
    Setup Multibranch for this project
 
-6. write Dockerfile
+6. write **Dockerfile**
 
 7. In Jenkinsfile, setup stage for BUILD IMAGE & PUSH IMAGE
 
-   push image to Docker Hub: setup credential 'docker-hub-reop' (with docker hub username & password)
+   push image to **Docker Hub**: setup credential 'docker-hub-reop' (with docker hub username & password)
 
 Done!
 
@@ -40,9 +40,9 @@ In 'jenkins_slave': docker run -dt -p 8000:8000 <dockerimageid>
 
 ---
 
-8.  Use Kubernetes
+8.  Use **Kubernetes**
 
-configure eks and eks-sg with vpc
+configure **eks and eks-sg** with vpc
 
 9.  Integrate 'jenkins_slave' with Kubernetes cluster just create
 
@@ -70,7 +70,7 @@ configure eks and eks-sg with vpc
 
         with access_key, secret_key
 
-    9.3 Download Kubernetes credentials and cluster configuration (.kube/config file) from the cluster (update local kubeconfig file, with Kubernetes credentials and cluster configuration, so can interact with aws eks)
+    9.3 Download Kubernetes credentials and cluster configuration (.kube/config file) from the cluster (update local **kubeconfig** file, with Kubernetes credentials and cluster configuration, so can interact with aws eks)
 
         aws eks update-kubeconfig --region ap-southeast-2 --name dop-eks-1
 
@@ -89,7 +89,7 @@ Note::: In deployment.yaml: pull image from docker hub need secret: </br>
     --docker-email=<your-email> \
     -n dop-namespace
 
-If --docker-password use token：need to generate a token in docker hub account -> security </br>
+If the above '--docker-password' use token：need to generate a token in docker hub account -> security </br>
 
 Check To Confirm:
 
@@ -116,7 +116,7 @@ Done!
 
 ---
 
-13. Add Prometheus to monitor the kubernetes
+13. Add **Prometheus** to monitor the kubernetes
 
     13.1 Install Helm:
 
@@ -152,7 +152,7 @@ Done!
 
         kubectl edit svc prometheus-grafana -n monitoring
 
-        browser: elb DNS name (no port needed), access Grafana dashboard
+        browser: elb DNS name (no port needed), access **Grafana** dashboard
 
         LOGIN:
 
@@ -163,6 +163,7 @@ Done!
     In dashboard, can see the monitoring data of ns, pod, etc.
 
 Done!
+
 (change back with ClusterIP: kubectl edit svc prometheus-grafana -n monitoring,
 
 AWS LoadBalancer will be deleted)
