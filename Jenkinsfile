@@ -17,11 +17,5 @@ pipeline {
                 sh 'mvn clean deploy -Dmvn.test.skip=true'
             }
         }
-        // stage('test') {
-        //     steps {
-        //         echo "testing java-maven app here......"
-        //         sh 'mvn surefire-report:report'
-        //     }
-        // }
     }
 }
